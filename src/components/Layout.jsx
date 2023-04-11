@@ -37,9 +37,14 @@ export default function Layout() {
 						</Button>
 					</>
 					) : (
-						<Button color="inherit" component={Link} to="/login">
-							Login
-						</Button>
+						<>
+							<Button color="inherit" component={Link} to="/login">
+								Login
+							</Button>
+							<Button color="inherit" component={Link} to="/signup">
+								Sign up
+							</Button>
+						</>
 					)}
 				</Toolbar>
 			</AppBar>
@@ -48,7 +53,7 @@ export default function Layout() {
 					<Outlet />
 				</Container>
 				<Box sx={{ bgcolor: 'background.paper', p: 6 }} component="footer">
-					<Copyright sx={{ pt: 5 }} />
+					<Copyright sx={{ pt: 4 }} />
 				</Box>
 			</ThemeProvider>
 		</div>

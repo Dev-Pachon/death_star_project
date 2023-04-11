@@ -5,6 +5,7 @@ import Layout from "../components/Layout.jsx";
 import SignUp from "../pages/SignUp.jsx";
 import HomePage from "../pages/Home.jsx";
 import Starships from "../pages/Starships.jsx";
+import Starship from '../pages/Starship.jsx';
 
 export default function RoutesComponent() {
 
@@ -33,7 +34,7 @@ export default function RoutesComponent() {
 				},
 				{
 					path: "/starships/:id",
-					element: <SignIn/>
+					element: <Starship/>
 				},
 				{
 					path: "/people",
