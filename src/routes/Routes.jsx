@@ -1,10 +1,14 @@
 import {Route, Routes, BrowserRouter as Router, RouterProvider, createBrowserRouter} from 'react-router-dom'
+import { useSelector } from "react-redux";
 import SignIn from '../pages/SignIn.jsx'
 import Layout from "../components/Layout.jsx";
 import SignUp from "../pages/SignUp.jsx";
 import HomePage from "../pages/Home.jsx";
+import Starships from "../pages/Starships.jsx";
 
 export default function RoutesComponent() {
+
+	const loggedIn = useSelector(state => state.auth.value)
 
 	const router = createBrowserRouter([
 		{
@@ -17,15 +21,15 @@ export default function RoutesComponent() {
 				},
 				{
 					path: "/login",
-					element: <SignIn/>
+					element: loggedIn ? <HomePage/> : <SignIn/>
 				},
 				{
 					path: "/signup",
-					element: <SignUp/>
+					element: loggedIn ? <HomePage/> : <SignUp/>
 				},
 				{
 					path: "/starships",
-					element: <SignIn/>
+					element:  loggedIn ? <Starships/> : <SignIn/>
 				},
 				{
 					path: "/starships/:id",
