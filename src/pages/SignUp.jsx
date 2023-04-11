@@ -2,21 +2,39 @@ import * as React from 'react';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { Link as RouterLink } from 'react-router-dom';
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+import { createUserWithEmailAndPassword } from "firebase/auth"
+import { firebaseAuth } from "../util/firebase.js";
+import { useDispatch } from 'react-redux';
+import { login } from "../reducers/authSlice.js";
+import { Link as RouterLink, useNavigate } from 'react-router-dom'
 
 export default function SignUp() {
+	const MySwal = withReactContent(Swal)
+	const dispatch = useDispatch()
+	const navigate = useNavigate()
+
 	const handleSubmit = (event) => {
-		event.preventDefault();
-		const data = new FormData(event.currentTarget);
-		console.log({
-			email: data.get('email'),
-			password: data.get('password'),
-		});
+		event.preventDefault()
+		const data = new FormData(event.currentTarget)
+		createUserWithEmailAndPassword(firebaseAuth, data.get('email'), data.get('password'))
+			.then((response) => {
+				dispatch(login({ uid: response.user.uid, email: response.user.email }))
+				navigate('/')
+			})
+			.catch(() => {
+				MySwal.fire({
+					icon: 'error',
+					title: 'Failed to sign up',
+					text: 'Please check your information',
+					confirmButtonText: 'Try again'
+				})
+			})
 	};
 
 	return (

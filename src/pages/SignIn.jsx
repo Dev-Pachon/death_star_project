@@ -25,8 +25,7 @@ export default function SignIn() {
 			.then((response) => {
 				dispatch(login({ uid: response.user.uid, email: response.user.email }))
 				navigate('/')
-			}).catch((e) => {
-				console.log(e)
+			}).catch(() => {
 				MySwal.fire({
 					icon: 'error',
 					title: 'Failed to login',
