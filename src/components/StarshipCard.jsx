@@ -11,13 +11,14 @@ import Skeleton from '@mui/material/Skeleton'
 import { ref, getDownloadURL } from 'firebase/storage'
 import { firebaseStorage } from '../util/firebase.js'
 import { useState, useEffect } from 'react'
+import axios from '../util/axios.js'
 
 const useStyles = makeStyles({
     root: {
-        maxWidth: 1000,
+        maxWidth: 800,
     },
     media: {
-        height: 200,
+        height: 400,
     },
 });
 
@@ -31,7 +32,12 @@ function Starship({ starship }) {
         getDownloadURL(storageRef).then((url) => {
             setUrl(url)
         }).catch(() => {
-            setUrl(null)
+            axios.get(`https://starwars-visualguide.com/assets/img/starships/${id}.jpg`)
+            .then(() => {
+                setUrl(`https://starwars-visualguide.com/assets/img/starships/${id}.jpg`)
+            }).catch(() => {
+                setUrl(null)
+            })
         })
     }
 

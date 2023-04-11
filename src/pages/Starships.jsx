@@ -3,7 +3,7 @@ import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
 import axios from '../util/axios.js'
-import Starship from '../components/Starship.jsx'
+import Starship from '../components/StarshipCard.jsx'
 import Stack from '@mui/material/Stack'
 import Button from '@mui/material/Button'
 
@@ -58,7 +58,7 @@ export default function Starships() {
           </Typography>
         </Container>
       </Box>
-      <Container maxWidth="md">
+      <Container maxWidth="md" align="center">
         {renderStarships()}
       </Container>
       <Stack

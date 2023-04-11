@@ -7,33 +7,33 @@ import withReactContent from 'sweetalert2-react-content'
 import { firebaseStorage } from '../util/firebase.js';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
-const Starship = () => {
+const Planet = () => {
     const { id } = useParams();
-    const [starship, setStarship] = useState({})
+    const [planet, setPlanet] = useState({})
     const [image, setImage] = useState({})
     const [show, setShow] = useState(true)
 
     const navigate = useNavigate()
     const MySwal = withReactContent(Swal)
 
-    const getStarship = () => {
-        axios.get(`/starships/${id}/`)
+    const getPlanet = () => {
+        axios.get(`/planets/${id}/`)
             .then((response) => {
-                setStarship(response.data)
+                setPlanet(response.data)
             }).catch(() => {
                 setShow(false)
                 nothig()
             })
     }
 
-    const getStarshipImage = () => {
-        const storageRef = ref(firebaseStorage, `starships/${id}.jpg`)
+    const getPlanetImage = () => {
+        const storageRef = ref(firebaseStorage, `planets/${id}.jpg`)
         getDownloadURL(storageRef).then((url) => {
             setImage(url)
         }).catch(() => {
-            axios.get(`https://starwars-visualguide.com/assets/img/starships/${id}.jpg`)
+            axios.get(`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`)
             .then(() => {
-                setImage(`https://starwars-visualguide.com/assets/img/starships/${id}.jpg`)
+                setImage(`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`)
             }).catch(() => {
                 setImage(null)
             })
@@ -41,18 +41,18 @@ const Starship = () => {
     }
 
     useEffect(() => {
-        getStarship()
-        getStarshipImage()
+        getPlanet()
+        getPlanetImage()
     }, [id])
 
     const nothig = () => {
         MySwal.fire({
             title: <p>Nothing to see here</p>,
             icon: 'error',
-            confirmButtonText: 'Back to starships',
+            confirmButtonText: 'Back to planets',
         }).then((result) => {
             if (result.isConfirmed) {
-                navigate('/starships')
+                navigate('/planets')
             }
         })
     }
@@ -68,7 +68,7 @@ const Starship = () => {
           })
           
           if (file) {
-            const storageRef = ref(firebaseStorage, `starships/${id}.jpg`)
+            const storageRef = ref(firebaseStorage, `planets/${id}.jpg`)
             await uploadBytes(storageRef, file)
             .then(() => {
                 MySwal.fire({
@@ -76,7 +76,7 @@ const Starship = () => {
                     icon: 'success',
                 })
             })
-            getStarshipImage()
+            getPlanetImage()
           }
     }
 
@@ -91,34 +91,26 @@ const Starship = () => {
                         color="text.primary"
                         gutterBottom
                     >
-                        {starship.name}
+                        {planet.name}
                     </Typography>
                     {image ? <img src={image} height={320} /> : <Skeleton variant="rectangular" height={320} />}
                     <Typography variant="h5" align="left" color="text.secondary" paragraph sx={{ mt: 2 }}>
-                        <b>{`Model: `}</b>
-                        {`${starship.model}`} <br />
-                        <b>{`Manufacturer: `}</b>
-                        {`${starship.manufacturer}`} <br />
-                        <b>{`Cost in credits: `}</b>
-                        {`${starship.cost_in_credits}`} <br />
-                        <b>{`Length: `}</b>
-                        {`${starship.length}`} <br />
-                        <b>{`Max atmosphering speed: `}</b>
-                        {`${starship.max_atmosphering_speed}`} <br />
-                        <b>{`Crew: `}</b>
-                        {`${starship.crew}`} <br />
-                        <b>{`Passengers: `}</b>
-                        {`${starship.passengers}`} <br />
-                        <b>{`Cargo capacity: `}</b>
-                        {`${starship.cargo_capacity}`} <br />
-                        <b>{`Consumables: `}</b>
-                        {`${starship.consumables}`} <br />
-                        <b>{`Hyperdrive rating: `}</b>
-                        {`${starship.hyperdrive_rating}`} <br />
-                        <b>{`MGLT: `}</b>
-                        {`${starship.MGLT}`} <br />
-                        <b>{`Starship class: `}</b>
-                        {`${starship.starship_class}`} <br />
+                        <b>{`Rotation Period: `}</b>
+                        {`${planet.rotation_period}`} <br />
+                        <b>{`Orbital Period: `}</b>
+                        {`${planet.orbital_period}`} <br />
+                        <b>{`Diameter: `}</b>
+                        {`${planet.diameter}`} <br />
+                        <b>{`Climate: `}</b>
+                        {`${planet.climate}`} <br />
+                        <b>{`Gravity: `}</b>
+                        {`${planet.gravity}`} <br />
+                        <b>{`Terrain: `}</b>
+                        {`${planet.terrain}`} <br />
+                        <b>{`Surface Water: `}</b>
+                        {`${planet.surface_water}`} <br />
+                        <b>{`Population: `}</b>
+                        {`${planet.population}`}
                     </Typography>
                 </Container>
                 <Stack
@@ -134,4 +126,4 @@ const Starship = () => {
     )
 }
 
-export default Starship
+export default Planet

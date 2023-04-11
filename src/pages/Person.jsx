@@ -7,33 +7,33 @@ import withReactContent from 'sweetalert2-react-content'
 import { firebaseStorage } from '../util/firebase.js';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
-const Starship = () => {
+const Person = () => {
     const { id } = useParams();
-    const [starship, setStarship] = useState({})
+    const [person, setPerson] = useState({})
     const [image, setImage] = useState({})
     const [show, setShow] = useState(true)
 
     const navigate = useNavigate()
     const MySwal = withReactContent(Swal)
 
-    const getStarship = () => {
-        axios.get(`/starships/${id}/`)
+    const getPerson = () => {
+        axios.get(`/people/${id}/`)
             .then((response) => {
-                setStarship(response.data)
+                setPerson(response.data)
             }).catch(() => {
                 setShow(false)
                 nothig()
             })
     }
 
-    const getStarshipImage = () => {
-        const storageRef = ref(firebaseStorage, `starships/${id}.jpg`)
+    const getPersonImage = () => {
+        const storageRef = ref(firebaseStorage, `people/${id}.jpg`)
         getDownloadURL(storageRef).then((url) => {
             setImage(url)
         }).catch(() => {
-            axios.get(`https://starwars-visualguide.com/assets/img/starships/${id}.jpg`)
+            axios.get(`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`)
             .then(() => {
-                setImage(`https://starwars-visualguide.com/assets/img/starships/${id}.jpg`)
+                setImage(`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`)
             }).catch(() => {
                 setImage(null)
             })
@@ -41,18 +41,18 @@ const Starship = () => {
     }
 
     useEffect(() => {
-        getStarship()
-        getStarshipImage()
+        getPerson()
+        getPersonImage()
     }, [id])
 
     const nothig = () => {
         MySwal.fire({
             title: <p>Nothing to see here</p>,
             icon: 'error',
-            confirmButtonText: 'Back to starships',
+            confirmButtonText: 'Back to people',
         }).then((result) => {
             if (result.isConfirmed) {
-                navigate('/starships')
+                navigate('/people')
             }
         })
     }
@@ -68,7 +68,7 @@ const Starship = () => {
           })
           
           if (file) {
-            const storageRef = ref(firebaseStorage, `starships/${id}.jpg`)
+            const storageRef = ref(firebaseStorage, `people/${id}.jpg`)
             await uploadBytes(storageRef, file)
             .then(() => {
                 MySwal.fire({
@@ -76,7 +76,7 @@ const Starship = () => {
                     icon: 'success',
                 })
             })
-            getStarshipImage()
+            getPersonImage()
           }
     }
 
@@ -91,34 +91,24 @@ const Starship = () => {
                         color="text.primary"
                         gutterBottom
                     >
-                        {starship.name}
+                        {person.name}
                     </Typography>
                     {image ? <img src={image} height={320} /> : <Skeleton variant="rectangular" height={320} />}
                     <Typography variant="h5" align="left" color="text.secondary" paragraph sx={{ mt: 2 }}>
-                        <b>{`Model: `}</b>
-                        {`${starship.model}`} <br />
-                        <b>{`Manufacturer: `}</b>
-                        {`${starship.manufacturer}`} <br />
-                        <b>{`Cost in credits: `}</b>
-                        {`${starship.cost_in_credits}`} <br />
-                        <b>{`Length: `}</b>
-                        {`${starship.length}`} <br />
-                        <b>{`Max atmosphering speed: `}</b>
-                        {`${starship.max_atmosphering_speed}`} <br />
-                        <b>{`Crew: `}</b>
-                        {`${starship.crew}`} <br />
-                        <b>{`Passengers: `}</b>
-                        {`${starship.passengers}`} <br />
-                        <b>{`Cargo capacity: `}</b>
-                        {`${starship.cargo_capacity}`} <br />
-                        <b>{`Consumables: `}</b>
-                        {`${starship.consumables}`} <br />
-                        <b>{`Hyperdrive rating: `}</b>
-                        {`${starship.hyperdrive_rating}`} <br />
-                        <b>{`MGLT: `}</b>
-                        {`${starship.MGLT}`} <br />
-                        <b>{`Starship class: `}</b>
-                        {`${starship.starship_class}`} <br />
+                        <b>{`Height: `}</b>
+                        {`${person.height}`} <br />
+                        <b>{`Mass: `}</b>
+                        {`${person.mass}`} <br />
+                        <b>{`Hair color: `}</b>
+                        {`${person.hair_color}`} <br />
+                        <b>{`Skin color: `}</b>
+                        {`${person.skin_color}`} <br />
+                        <b>{`Eye color: `}</b>
+                        {`${person.eye_color}`} <br />
+                        <b>{`Birth year: `}</b>
+                        {`${person.birth_year}`} <br />
+                        <b>{`Gender: `}</b>
+                        {`${person.gender}`}
                     </Typography>
                 </Container>
                 <Stack
@@ -134,4 +124,4 @@ const Starship = () => {
     )
 }
 
-export default Starship
+export default Person

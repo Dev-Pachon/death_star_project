@@ -8,8 +8,8 @@ import {
 	Stack,
 	Divider
 } from '@mui/material';
-import {Link} from 'react-router-dom';
-import {makeStyles} from "@mui/styles";
+import { Link } from 'react-router-dom';
+import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles({
 	root: {
@@ -23,16 +23,16 @@ const useStyles = makeStyles({
 function Home() {
 	const classes = useStyles();
 	return (
-		<Container maxWidth="md" sx={{marginTop: '4rem', textAlign: 'center'}}>
+		<Container maxWidth="md" sx={{ marginTop: '4rem', textAlign: 'center' }}>
 			<Typography variant="h3" component="h1" gutterBottom>
 				Welcome to the Star Wars Universe
 			</Typography>
-			<Typography variant="body1" sx={{marginBottom: '2rem'}}>
+			<Typography variant="body1" sx={{ marginBottom: '2rem' }}>
 				Explore the galaxy, discover new worlds, and meet new characters.
 			</Typography>
 			<Stack
 				direction="row"
-				divider={<Divider orientation="vertical" flexItem/>}
+				divider={<Divider orientation="vertical" flexItem />}
 				spacing={2}
 			>
 				<Card
@@ -66,7 +66,7 @@ function Home() {
 								Discover Characters
 							</Typography>
 							<Typography variant="body2" color="textSecondary" component="p">
-								Discover the technical details and history of all the starships in the Star Wars galaxy.
+								Find different personal details about your favorite characters and their path through the universe.
 							</Typography>
 						</CardContent>
 					</CardActionArea>
@@ -84,7 +84,7 @@ function Home() {
 								Visit Planets
 							</Typography>
 							<Typography variant="body2" color="textSecondary" component="p">
-								Discover the technical details and history of all the starships in the Star Wars galaxy.
+								Have you ever wondered about the road your favorite characters had to travel? Here you can find out!
 							</Typography>
 						</CardContent>
 					</CardActionArea>
