@@ -3,6 +3,7 @@ import SignIn from '../pages/SignIn.jsx'
 import Layout from "../components/Layout.jsx";
 import SignUp from "../pages/SignUp.jsx";
 import HomePage from "../pages/Home.jsx";
+import PeopleDetails from "../pages/People/PeopleDetails.jsx";
 
 export default function RoutesComponent() {
 
@@ -37,7 +38,7 @@ export default function RoutesComponent() {
 				},
 				{
 					path: "/people/:id",
-					element: <SignIn/>
+					element: <PeopleDetails/>
 				},
 				{
 					path: "/planets",

@@ -13,11 +13,11 @@ export const authSlice = createSlice({
 		login: (state, action) => {
 			signInWithEmailAndPassword(firebaseAuth, action.payload.email, action.payload.password)
 				.then((userCredential) => {
-					state.value = userCredential.user
+					state.auth.value = userCredential.user
 				}).catch((err) => {
+					console.log("aaa")
 				const errCod = err.code
-				const errMsg = err.message
-				console.error(errMsg)
+				const errMsg = err.toString()
 			})
 		},
 		logout: (state) => {
